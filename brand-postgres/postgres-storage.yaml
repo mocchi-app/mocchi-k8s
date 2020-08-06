@@ -1,0 +1,32 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: brand-postgres-pv-volume
+  labels:
+    type: local
+    app: postgres
+    part: brand
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/Users/igordrozdov/IdeaProjects/mochi/data/brand"
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: brand-postgres-pv-claim
+  labels:
+    app: postgres
+    part: brand
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi

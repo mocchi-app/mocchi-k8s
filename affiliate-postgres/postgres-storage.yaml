@@ -1,0 +1,32 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: affiliate-postgres-pv-volume
+  labels:
+    type: local
+    app: postgres
+    part: affiliate
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/Users/igordrozdov/IdeaProjects/mochi/data/affiliate"
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: affiliate-postgres-pv-claim
+  labels:
+    app: postgres
+    part: affiliate
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
