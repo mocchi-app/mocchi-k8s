@@ -1,0 +1,30 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: brand-fe
+  labels:
+    app: fe
+    part: brand
+spec:
+  selector:
+    matchLabels:
+      app: fe
+      part: brand
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: fe
+        part: brand
+    spec:
+      containers:
+        - name: brand-fe
+          image: docker.pkg.github.com/mocchi-app/brand-fe/brand-fe:latest
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: regcred
