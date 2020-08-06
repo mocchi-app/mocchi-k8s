@@ -6,9 +6,12 @@ metadata:
     app: fe
     part: affiliate
 spec:
+  type: LoadBalancer
   ports:
-    - port: 80
+    - protocol: TCP
+      port: 80
       targetPort: 3000
+      name: http
   selector:
     app: fe
     part: affiliate
