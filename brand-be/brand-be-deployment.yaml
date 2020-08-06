@@ -1,0 +1,33 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: brand-be
+  labels:
+    app: be
+    part: brand
+spec:
+  selector:
+    matchLabels:
+      app: be
+      part: brand
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: be
+        part: brand
+    spec:
+      containers:
+        - name: brand-be-kotlin
+          image: docker.pkg.github.com/mocchi-app/brand-be/brand-be:latest
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          envFrom:
+            - configMapRef:
+                name: brand-be-config
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: regcred
