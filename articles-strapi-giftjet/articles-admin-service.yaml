@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: articles-strapi-fe-lb
+  labels:
+    app: fe
+    part: articles-strapi
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 1337
+      name: http
+  selector:
+    app: fe
+    part: articles-strapi

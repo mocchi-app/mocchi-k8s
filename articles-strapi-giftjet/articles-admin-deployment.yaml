@@ -1,0 +1,30 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: articles-strapi-fe
+  labels:
+    app: fe
+    part: articles-strapi
+spec:
+  selector:
+    matchLabels:
+      app: fe
+      part: articles-strapi
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: fe
+        part: articles-strapi
+    spec:
+      containers:
+        - name: articles-strapi-fe
+          image: docker.pkg.github.com/mocchi-app/articles-strapi-giftjet/articles-strapi-giftjet:latest
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: regcred
